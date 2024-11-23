@@ -1,0 +1,9 @@
+go 1.23.3
+
+use (
+	.
+	./app/frontend
+	./app/user
+	./demo/demo_proto
+	./demo/demo_thrift
+)
