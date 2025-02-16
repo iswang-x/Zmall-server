@@ -1,0 +1,17 @@
+{{ define "category" }}
+    {{ template "header" . }}
+        <div class="row">
+        {{ range $.items}}
+            <div class="card border-0 col-lg-4 col-md-6 col-sm-12 p-1">
+                <a href="/product?id={{ .Id }}" class="btn">
+                    <img src="{{.Picture}}" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">{{.Name}}</h5>
+                        <h5 class="card-title">${{.Price}}</h5>
+                      </div>
+                  </a>
+            </div>
+        {{ end}}
+        </div>
+    {{ template "footer" . }}
+{{ end }}

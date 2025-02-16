@@ -3,6 +3,7 @@ go 1.23.3
 use (
 	.
 	./app/frontend
+	./app/product
 	./app/user
 	./demo/demo_proto
 	./demo/demo_thrift
