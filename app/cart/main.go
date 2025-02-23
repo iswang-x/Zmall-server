@@ -4,11 +4,14 @@ import (
 	"net"
 	"time"
 
+	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/dal"
 	"github.com/cloudwego/biz-demo/gomall/app/cart/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/cart/rpc"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
+	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
 	"go.uber.org/zap/zapcore"
@@ -16,6 +19,9 @@ import (
 )
 
 func main() {
+	_ = godotenv.Load()
+	dal.Init()
+	rpc.InitClient()
 	opts := kitexInit()
 
 	svr := cartservice.NewServer(new(CartServiceImpl), opts...)

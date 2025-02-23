@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/model"
 	"github.com/cloudwego/biz-demo/gomall/app/cart/conf"
 
 	"gorm.io/driver/mysql"
@@ -23,6 +24,7 @@ func Init() {
 			SkipDefaultTransaction: true,
 		},
 	)
+	DB.AutoMigrate(&model.Cart{})
 	if err != nil {
 		panic(err)
 	}
