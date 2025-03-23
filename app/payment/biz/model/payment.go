@@ -17,7 +17,7 @@ type PaymentLog struct {
 }
 
 func (PaymentLog) TableName() string {
-	return "payment_log"
+	return "payment"
 }
 
 func CreatePaymentLog(db *gorm.DB, ctx context.Context, payment *PaymentLog) error {
