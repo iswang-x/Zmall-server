@@ -4,7 +4,7 @@ import (
 	"context"
 	"strconv"
 
-	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	checkout "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/checkout"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
 	frontendUtils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	rpccart "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
@@ -22,7 +22,7 @@ func NewCheckoutService(Context context.Context, RequestContext *app.RequestCont
 	return &CheckoutService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *CheckoutService) Run(req *common.Empty) (resp map[string]any, err error) {
+func (h *CheckoutService) Run(req *checkout.CheckoutReq) (resp map[string]any, err error) {
 	// 展示给用户一个后面需要结算的商品列表
 	var items []map[string]string
 	userId := frontendUtils.GetUserIdFromCtx(h.Context)

@@ -21,6 +21,18 @@ func NewCheckoutService(ctx context.Context) *CheckoutService {
 	return &CheckoutService{ctx: ctx}
 }
 
+/*
+	Run
+
+1. get cart
+2. calculate cart
+3. create order
+4. empty cart
+5. pay
+6. change order result
+7. finish
+*/
+
 // Run create note info
 func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.CheckoutResp, err error) {
 	// Finish your business logic.
