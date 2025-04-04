@@ -9,7 +9,7 @@ import (
 	"github.com/cloudwego/biz-demo/gomall/app/payment/biz/model"
 	payment "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/payment"
 	"github.com/cloudwego/kitex/pkg/kerrors"
-	creditcart "github.com/durango/go-credit-card"
+	creditcard "github.com/durango/go-credit-card"
 	"github.com/google/uuid"
 )
 
@@ -23,7 +23,7 @@ func NewChargeService(ctx context.Context) *ChargeService {
 // Run create note info
 func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, err error) {
 	// Finish your business logic.
-	card := creditcart.Card{
+	card := creditcard.Card{
 		Number: req.CreditCard.CreditCardNumber,
 		Cvv:    strconv.Itoa(int(req.CreditCard.CreditCardCvv)),
 		Month:  strconv.Itoa(int(req.CreditCard.CreditCardExpirationMonth)),
@@ -32,7 +32,7 @@ func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, e
 
 	err = card.Validate(true)
 	if err != nil {
-		return nil, kerrors.NewGRPCBizStatusError(4004001, err.Error())
+		return nil, kerrors.NewBizStatusError(4004001, err.Error())
 	}
 	transactionId, err := uuid.NewRandom()
 	if err != nil {

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{ if $.redirect }}
-        <meta http-equiv="refresh" content="5;url=/checkout/result"/>
+        <meta http-equiv="refresh" content="5;url={{ $.redirect }}"/>
     {{ end}}
     <title>{{$.title}} | CloudWeGo Shop</title>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -52,7 +52,7 @@
             <span>hello</span>
         </div>
         <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Order Center</a></li>
+            <li><a class="dropdown-item" href="/order">Order Center</a></li>
             <li>
               <form action="/auth/logout" method="post">
                 <button class="dropdown-item" type="submit">Logout</button>
@@ -71,6 +71,15 @@
     </div>
   </div>
 </nav>
+<div class="text-bg-primary text-center">
+  <p></p>
+</div>
+  {{ if .error }}
+    <div class="alert alert-danger text-center" role="alert">{{ .error }}</div>
+  {{ end }}
+  {{ if .warning }}
+    <div class="alert alert-warning text-center" role="alert">{{ .warning }}</div>
+  {{ end }}
 </header>
 
 <main style="min-height: calc(80vh);">

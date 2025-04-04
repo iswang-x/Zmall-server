@@ -15,7 +15,7 @@ import (
 // @router /checkout [GET]
 func Checkout(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req common.Empty
+	var req checkout.CheckoutReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)

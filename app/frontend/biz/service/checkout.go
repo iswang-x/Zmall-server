@@ -4,7 +4,7 @@ import (
 	"context"
 	"strconv"
 
-	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	checkout "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/checkout"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
 	frontendUtils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	rpccart "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
@@ -22,7 +22,7 @@ func NewCheckoutService(Context context.Context, RequestContext *app.RequestCont
 	return &CheckoutService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *CheckoutService) Run(req *common.Empty) (resp map[string]any, err error) {
+func (h *CheckoutService) Run(req *checkout.CheckoutReq) (resp map[string]any, err error) {
 	// 展示给用户一个后面需要结算的商品列表
 	var items []map[string]string
 	userId := frontendUtils.GetUserIdFromCtx(h.Context)
@@ -43,16 +43,17 @@ func (h *CheckoutService) Run(req *common.Empty) (resp map[string]any, err error
 		}
 		p := productResp.Product
 		items = append(items, map[string]string{
-			"name":    p.Name,
-			"price":   strconv.FormatFloat(float64(p.Price), 'f', 2, 64),
-			"picture": p.Picture,
+			"Name":    p.Name,
+			"Price":   strconv.FormatFloat(float64(p.Price), 'f', 2, 64),
+			"Picture": p.Picture,
 			"Qty":     strconv.Itoa(int(v.Quantity)),
 		})
 		total += float32(v.Quantity) * p.Price
 	}
 	return utils.H{
-		"title": "Checkout",
-		"items": items,
-		"total": strconv.FormatFloat(float64(total), 'f', 2, 64),
+		"title":    "Checkout",
+		"items":    items,
+		"cart_num": len(items),
+		"total":    strconv.FormatFloat(float64(total), 'f', 2, 64),
 	}, nil
 }
